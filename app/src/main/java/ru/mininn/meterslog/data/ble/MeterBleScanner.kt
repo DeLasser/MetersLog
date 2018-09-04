@@ -7,6 +7,8 @@ import com.polidea.rxandroidble2.scan.ScanFilter
 import com.polidea.rxandroidble2.scan.ScanResult
 import com.polidea.rxandroidble2.scan.ScanSettings
 import io.reactivex.Observable
+import ru.mininn.meterslog.data.api.CntDevApi
+import ru.mininn.meterslog.data.api.CntDevClient
 import ru.mininn.meterslog.data.model.Meter
 import ru.mininn.util.MeterParser
 import java.util.*
@@ -34,7 +36,7 @@ class MeterBleScanner(context: Context) {
                 .doOnNext {
                     //                    database.getMeterDao().insertMeter(it)
                 }
-                .doOnNext {
+                .doOnNext { it ->
                     //send to server
                     val meterJson = JsonObject()
                     meterJson.addProperty("version_json", "500001")
@@ -50,6 +52,14 @@ class MeterBleScanner(context: Context) {
                     meterJson.addProperty("batteryValue", it.batteryValue)
                     meterJson.addProperty("temperatureValue", it.temperatureValue)
                     meterJson.addProperty("packageData", it.packageData)
+                    CntDevClient.getRxClient()
+                            .create(CntDevApi::class.java)
+                            .postMeterData(meterJson)
+                            .subscribe({
+
+                            }, {
+                                it.printStackTrace()
+                            })
                 }
 
     }
