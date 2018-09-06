@@ -1,17 +1,22 @@
 package ru.mininn.meterslog.data.database
 
+import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
-import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
-import ru.mininn.meterslog.data.model.Meter
+import ru.mininn.meterslog.data.model.MeterModel
+import ru.mininn.meterslog.data.model.UserMeter
+import ru.mininn.meterslog.data.model.UserMeterInfo
 
 @Dao
 interface MeterDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMeter(meter: Meter)
+    @Insert
+    fun insertMeter(meter: MeterModel)
 
-    @Query("SELECT * FROM Meter")
-    fun getMeters(): List<Meter>
+    @Insert
+    fun insertMeter(userMeterData: UserMeterInfo)
+
+    @Query("SELECT UserMeterInfo.deviceUId, UserMeterInfo.dataType, UserMeterInfo.description FROM UserMeterInfo")
+    fun getUserMeters() : LiveData<List<UserMeter>>
 }

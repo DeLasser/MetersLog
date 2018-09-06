@@ -2,39 +2,41 @@ package ru.mininn.meterslog.data.model
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
+import org.jetbrains.annotations.NotNull
 import java.util.*
 
 @Entity
-class Meter() {
+class MeterModel() {
     @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
+    var  id: Int = 0
     var isEncrypted: Boolean = false
-    var deviceUId: String = ""
-    var packetCounter: Int = 0
-    var packetVersion: Int = 0
+    var packetCounter: Int? = null
+    var packetVersion: Int? = null
     var deviceType: Int = 0
     var deviceModel: Int = 0
     var deviceSerNum: Int = 0
     var timestamp: Long = 0
     var deviceValue: Double? = null
     var deviceSecondValue: Double? = null
-    var batteryValue: Double = 0.toDouble()
-    var temperatureValue: Double = 0.toDouble()
-    var lat: Double = 0.toDouble()
-    var lng: Double = 0.toDouble()
-    var accuracy: Double = 0.toDouble()
-    var packageData: String = ""
+    var batteryValue: Double? = null
+    var temperatureValue: Double? = null
+    var lat: Double? = null
+    var lng: Double? = null
+    var accuracy: Double? = null
+    @NotNull
     var isBackground: Boolean = false
+    var packageData: String = ""
+    var deviceUId : String= ""
 
     constructor(isEncrypted: Boolean,
                 packetCounter: Int,
                 packetVersion: Int,
                 deviceType: Int,
                 deviceModel: Int,
-                deviceSernum: Int,
+                deviceSerNum: Int,
                 timestamp: Long,
-                deviceValue: Double?,
-                deviceSecondValue: Double?,
+                deviceValue: Double,
+                deviceSecondValue: Double,
                 batteryValue: Double,
                 temperatureValue: Double,
                 lat: Double,
@@ -47,7 +49,7 @@ class Meter() {
         this.packetVersion = packetVersion
         this.deviceType = deviceType
         this.deviceModel = deviceModel
-        this.deviceSerNum = deviceSernum
+        this.deviceSerNum = deviceSerNum
         this.timestamp = timestamp
         this.deviceValue = deviceValue
         this.deviceSecondValue = deviceSecondValue
@@ -58,7 +60,7 @@ class Meter() {
         this.accuracy = accuracy
         this.packageData = packageData
         this.isBackground = isBackground
-        this.deviceUId = generateDeviceUid()
+        this.deviceUId = generateDeviceUId()
     }
 
     override fun toString(): String {
@@ -86,7 +88,7 @@ class Meter() {
         }
     }
 
-    private fun generateDeviceUid(): String = "$deviceType-$deviceModel-$deviceSerNum${if (isEncrypted) {
+    private fun generateDeviceUId(): String = "$deviceType-$deviceModel-$deviceSerNum${if (isEncrypted) {
         "-Encrypted"
     } else {
         ""
