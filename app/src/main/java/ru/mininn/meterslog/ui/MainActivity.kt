@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initDataUpdate() {
-        viewModel.metersLiveData.observe(this, Observer {
+        viewModel.subscribeForUpdates(this, Observer {
             meterAdapter.setData(it!!)
         })
 

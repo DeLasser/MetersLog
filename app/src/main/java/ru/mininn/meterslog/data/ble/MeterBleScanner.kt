@@ -1,15 +1,12 @@
 package ru.mininn.meterslog.data.ble
 
 import android.content.Context
-import android.util.Log
 import com.google.gson.JsonObject
 import com.polidea.rxandroidble2.RxBleClient
 import com.polidea.rxandroidble2.scan.ScanFilter
 import com.polidea.rxandroidble2.scan.ScanResult
 import com.polidea.rxandroidble2.scan.ScanSettings
 import io.reactivex.Observable
-import io.reactivex.Scheduler
-import io.reactivex.schedulers.Schedulers
 import ru.mininn.meterslog.data.api.CntDevApi
 import ru.mininn.meterslog.data.api.CntDevClient
 import ru.mininn.meterslog.data.database.MeterDatabase
@@ -22,10 +19,11 @@ import java.util.*
 class MeterBleScanner(context: Context) {
     private val scanSettings by lazy { ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build() }
     private val scanFilter by lazy { ScanFilter.empty() }
-    private val database by lazy { MeterDatabase.databaseBuilder(context).build() }
 
     private var bleClient: RxBleClient = RxBleClient.create(context)
     private var deviceScanner: Observable<ScanResult> = bleClient.scanBleDevices(scanSettings, scanFilter)
+
+    private val database by lazy { MeterDatabase.databaseBuilder(context).allowMainThreadQueries().build() }
 
 
     fun getMeterScanner(): Observable<MeterModel> {
@@ -42,7 +40,7 @@ class MeterBleScanner(context: Context) {
                 }
                 .doOnNext {
                     database.getMeterDao().insertMeter(it)
-                    database.getMeterDao().insertMeter(UserMeterInfo(it.deviceUId,1,"asdasd"))
+                    database.getMeterDao().insertMeter(UserMeterInfo(it.deviceUId,0,"asdasd"))
                 }
                 .doOnNext { it ->
                     //send to server
@@ -63,9 +61,8 @@ class MeterBleScanner(context: Context) {
 //                    CntDevClient.getRxClient()
 //                            .create(CntDevApi::class.java)
 //                            .postMeterData(meterJson)
-//                            .subscribeOn(Schedulers.io())
 //                            .subscribe({
-//                                Log.d("asdasd", "Ok")
+//
 //                            }, {
 //                                it.printStackTrace()
 //                            })

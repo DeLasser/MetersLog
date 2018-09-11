@@ -16,7 +16,7 @@ class MeterAdapter(var meters: List<UserMeter>): RecyclerView.Adapter<MeterViewH
     }
 
     override fun onBindViewHolder(holder: MeterViewHolder, position: Int) {
-        holder.bind(meters[position].meterData!!)
+        holder.bind(meters[position].meterData)
     }
 
     fun setData(meters: List<UserMeter>) {

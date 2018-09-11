@@ -1,10 +1,13 @@
 package ru.mininn.meterslog.data.model
 
 import android.arch.persistence.room.Entity
+import android.arch.persistence.room.ForeignKey
 import android.arch.persistence.room.PrimaryKey
 import java.util.*
 
-@Entity
+@Entity(foreignKeys = arrayOf(ForeignKey(entity = UserMeter::class,
+        parentColumns = arrayOf("meterUId"),
+        childColumns = arrayOf("deviceUId"))))
 class Meter() {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
