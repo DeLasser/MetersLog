@@ -6,10 +6,7 @@ import com.polidea.rxandroidble2.scan.ScanFilter
 import com.polidea.rxandroidble2.scan.ScanResult
 import com.polidea.rxandroidble2.scan.ScanSettings
 import io.reactivex.Observable
-import ru.mininn.meterslog.data.database.MeterDatabase
 import ru.mininn.meterslog.data.model.Meter
-import ru.mininn.meterslog.data.model.MeterModel
-import ru.mininn.meterslog.data.model.UserMeterInfo
 import ru.mininn.util.MeterParser
 import java.util.*
 
@@ -20,7 +17,6 @@ class MeterBleScanner(context: Context) {
     private var bleClient: RxBleClient = RxBleClient.create(context)
     private var deviceScanner: Observable<ScanResult> = bleClient.scanBleDevices(scanSettings, scanFilter)
 
-    private val database by lazy { MeterDatabase.databaseBuilder(context).allowMainThreadQueries().build() }
 
 
     fun getMeterScanner(): Observable<Meter> {

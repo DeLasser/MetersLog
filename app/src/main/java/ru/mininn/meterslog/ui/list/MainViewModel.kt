@@ -27,6 +27,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     override fun onCleared() {
         super.onCleared()
         Log.d("asdasd", "onCleared")
+        stopScan()
     }
 
     fun subscribeForUpdates(lifecycleOwner: LifecycleOwner, observer: Observer<List<Meter>>) {

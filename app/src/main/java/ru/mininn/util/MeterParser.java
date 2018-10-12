@@ -106,8 +106,6 @@ public class MeterParser {
     }
 
     private static double parseTemperatureValue(byte[] blePackage) {
-//        Log.d("asdasd", " " + (blePackage[18] & 0xFF) + " " + ((blePackage[19] & 0xFF)));
-        Log.d("asdasd", " " + ((blePackage[18] & 0xFF) | ((blePackage[19] & 0xFF) << 8)));
         return (double) ((blePackage[18] & 0xFF) | ((blePackage[19] & 0xFF) << 8)) /100;
     }
 
