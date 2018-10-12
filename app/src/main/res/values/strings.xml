@@ -30,4 +30,15 @@
     <string name="dev_name" translatable="false">%1$s-%2$s</string>
     <string name="meter_model_and_sernum">%1$s № %2$07d</string>
     <string name="meter_reading_gas">%05.0fm³</string>
+    <string name="type">Type:</string>
+    <string name="model">Model:</string>
+    <string name="serial">Serial:</string>
+    <string name="device_uid">device_uid:</string>
+    <string name="device_value">device_value:</string>
+    <string name="packet_counter">packet_counter:</string>
+    <string name="packet_version">packet_version:</string>
+    <string name="battery_value">battery_value:</string>
+    <string name="temperature_value">temperature_value:</string>
+    <string name="package_data">package_data:</string>
+    <string name="timestamp">timestamp:</string>
 </resources>
