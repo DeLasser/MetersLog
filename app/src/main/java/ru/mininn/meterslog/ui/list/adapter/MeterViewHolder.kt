@@ -27,9 +27,7 @@ class MeterViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
 
     private fun bindValuew(item: Meter) {
-        itemView.value.text = String.format(Locale.getDefault(),
-                itemView.resources.getString(R.string.meter_reading_gas),
-                Math.floor(item.deviceValue!!))
+        itemView.value.text = item.deviceValue.toString()
     }
 
     private fun bindType(meterData: Meter) {

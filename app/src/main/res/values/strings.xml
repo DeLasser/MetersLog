@@ -22,10 +22,10 @@
         <item></item>
     </string-array>
 
-    <string name="dev_gas_name">DGM</string>
-    <string name="dev_gas_dl_name">GMDL</string>
-    <string name="dev_gas_ultra_name">USGM</string>
-    <string name="dev_water_name">DWM</string>
+    <string name="dev_gas_name">СГБ</string>
+    <string name="dev_gas_dl_name">СГБД</string>
+    <string name="dev_water_name">СВД</string>
+    <string name="dev_gas_ultra_name">СВУ</string>
     <string name="empty" translatable="false"/>
     <string name="dev_name" translatable="false">%1$s-%2$s</string>
     <string name="meter_model_and_sernum">%1$s № %2$07d</string>

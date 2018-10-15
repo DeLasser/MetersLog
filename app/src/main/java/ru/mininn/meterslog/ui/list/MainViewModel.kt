@@ -10,8 +10,9 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import ru.mininn.meterslog.data.ble.MeterBleScanner
 import ru.mininn.meterslog.data.model.Meter
+import ru.mininn.meterslog.ui.BaseViewModel
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel(application: Application) : BaseViewModel(application) {
 
 
     val statusLiveData = MutableLiveData<Boolean>()
@@ -26,7 +27,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     override fun onCleared() {
         super.onCleared()
-        Log.d("asdasd", "onCleared")
         stopScan()
     }
 
@@ -34,7 +34,21 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         metersLiveData.observe(lifecycleOwner, observer)
     }
 
-    fun startScan() {
+    fun changeScanStatus() {
+        statusLiveData.value?.let {
+            statusLiveData.value = !it
+            Log.d("asd", "${it}")
+            if (it) {
+                stopScan()
+            } else {
+                startScan()
+            }
+        }
+    }
+
+    private fun startScan() {
+        statusLiveData.value = true
+        scanDisposable?.dispose()
         scanDisposable = bleScanner
                 .getMeterScanner()
                 .subscribeOn(Schedulers.io())
@@ -51,11 +65,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     }
                     metersLiveData.postValue(result)
                 }, {
-
+                    Log.d("asdError", it.localizedMessage)
+                    it.printStackTrace()
+                    messageLiveData.postValue(it.localizedMessage)
+                    stopScan()
                 })
     }
 
-    fun stopScan() {
+    private fun stopScan() {
+        statusLiveData.postValue(false)
         scanDisposable?.dispose()
     }
 }

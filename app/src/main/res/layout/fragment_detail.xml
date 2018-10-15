@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cardBackground"
@@ -11,47 +12,55 @@
         android:id="@+id/device_type_const"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="@string/type"
+        android:layout_marginLeft="8dp"
 
+        android:layout_marginTop="8dp"
+        android:text="@string/type"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/device_name" />
 
     <TextView
         android:id="@+id/device_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/device_type_const"
         app:layout_constraintLeft_toRightOf="@id/device_type_const"
-        app:layout_constraintRight_toLeftOf="@+id/device_model_const" />
+        app:layout_constraintRight_toLeftOf="@+id/device_model_const"
+        app:layout_constraintTop_toTopOf="@+id/device_type_const" />
 
 
     <TextView
         android:id="@+id/device_model_const"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/model"
 
+        android:text="@string/model"
+        app:layout_constraintBottom_toTopOf="@+id/device_uid"
         app:layout_constraintLeft_toRightOf="@+id/device_type"
-        app:layout_constraintRight_toLeftOf="@+id/device_model" />
+        app:layout_constraintRight_toLeftOf="@+id/device_model"
+        app:layout_constraintTop_toTopOf="@+id/device_type" />
 
     <TextView
         android:id="@+id/device_model"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/device_model_const"
         app:layout_constraintLeft_toRightOf="@+id/device_model_const"
-        app:layout_constraintRight_toLeftOf="@+id/device_sernum_const" />
+        app:layout_constraintRight_toLeftOf="@+id/device_sernum_const"
+        app:layout_constraintTop_toTopOf="@+id/device_model_const" />
 
 
     <TextView
         android:id="@+id/device_sernum_const"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+
+
         android:text="@string/serial"
-
-
+        app:layout_constraintBottom_toBottomOf="@+id/device_model"
         app:layout_constraintLeft_toRightOf="@+id/device_model"
-        app:layout_constraintRight_toLeftOf="@+id/device_sernum" />
+        app:layout_constraintRight_toLeftOf="@+id/device_sernum"
+        app:layout_constraintTop_toTopOf="@+id/device_model" />
 
 
     <TextView
@@ -59,8 +68,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/device_sernum_const"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintRight_toRightOf="@+id/device_sernum_const" />
+        app:layout_constraintRight_toRightOf="@+id/device_sernum_const"
+        app:layout_constraintTop_toTopOf="@+id/device_sernum_const" />
 
 
     <TextView
@@ -221,6 +232,18 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/package_data" />
+
+    <TextView
+        android:id="@+id/device_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

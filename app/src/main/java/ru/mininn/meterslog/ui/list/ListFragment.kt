@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_list.*
 import kotlinx.android.synthetic.main.fragment_list.view.*
 import ru.mininn.meterslog.R
@@ -35,6 +36,7 @@ class ListFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView(view)
         initDataUpdate()
+        initToasts()
     }
 
     private fun initView(view: View) {
@@ -56,7 +58,7 @@ class ListFragment: Fragment() {
             view.button.setText(R.string.start_scan)
         }
         view.button.setOnClickListener {
-            viewModel.statusLiveData.value = !viewModel.statusLiveData.value!!
+            viewModel.changeScanStatus()
         }
     }
 
@@ -69,11 +71,9 @@ class ListFragment: Fragment() {
             if (it!!) {
                 view?.button?.setBackgroundColor(this.resources.getColor(R.color.stopScanColor))
                 view?.button?.setText(R.string.stop_scan)
-                viewModel.startScan()
             } else {
                 this.button.setBackgroundColor(this.resources.getColor(R.color.startScanColor))
                 this.button.setText(R.string.start_scan)
-                viewModel.stopScan()
             }
         })
     }
@@ -87,5 +87,13 @@ class ListFragment: Fragment() {
                 ?.add(R.id.container, fragment)
                 ?.addToBackStack("")
                 ?.commit()
+    }
+
+    private fun initToasts() {
+        viewModel.messageLiveData.observe(this, Observer {
+            it?.let {
+                Toast.makeText(activity,it, Toast.LENGTH_LONG).show()
+            }
+        })
     }
 }
